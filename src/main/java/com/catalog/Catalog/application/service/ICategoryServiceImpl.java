@@ -34,8 +34,8 @@ public class ICategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public Category update(CategoryDTO toUpdate) {
-        return this.categoryRepository.update(toUpdate.toEntity());
+    public Category update(Category toUpdate) {
+        return this.categoryRepository.update(toUpdate);
     }
 
     @Override

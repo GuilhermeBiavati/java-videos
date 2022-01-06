@@ -13,7 +13,7 @@ public interface ICategoryService {
 
     Category create(CategoryDTO toAdd);
 
-    Category update(CategoryDTO toAdd);
+    Category update(Category toAdd);
 
     void delete(UUID id);
 

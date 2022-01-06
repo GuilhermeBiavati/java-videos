@@ -40,7 +40,7 @@ public class CategoryController {
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable UUID id) {
         try {
-            return this.categoryService.findById(id).map(record -> ResponseEntity.ok().build())
+            return this.categoryService.findById(id).map(record -> ResponseEntity.ok().body(record))
                     .orElse(ResponseEntity.notFound().build());
 
         } catch (Exception e) {
@@ -63,10 +63,13 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable UUID id, @RequestBody CategoryDTO toUpdate) {
+    public ResponseEntity update(@PathVariable UUID id, @RequestBody Category toUpdate) {
         try {
             return this.categoryService.findById(id).map(record -> {
-                Category updated = this.categoryService.update(toUpdate);
+
+                record.setName(toUpdate.getName());
+
+                Category updated = this.categoryService.update(record);
                 return ResponseEntity.ok().body(updated);
             }).orElse(ResponseEntity.notFound().build());
         } catch (Exception e) {
