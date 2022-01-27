@@ -63,13 +63,10 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable UUID id, @RequestBody Category toUpdate) {
+    public ResponseEntity update(@PathVariable UUID id, @RequestBody CategoryDTO toUpdate) {
         try {
             return this.categoryService.findById(id).map(record -> {
-
-                record.setName(toUpdate.getName());
-
-                Category updated = this.categoryService.update(record);
+                Category updated = this.categoryService.update(id, toUpdate);
                 return ResponseEntity.ok().body(updated);
             }).orElse(ResponseEntity.notFound().build());
         } catch (Exception e) {
@@ -84,7 +81,7 @@ public class CategoryController {
         try {
             return categoryService.findById(id).map(record -> {
                 this.categoryService.delete(id);
-                return ResponseEntity.ok().build();
+                return ResponseEntity.noContent().build();
             }).orElse(ResponseEntity.notFound().build());
         } catch (Exception e) {
             // TODO: handle exception
