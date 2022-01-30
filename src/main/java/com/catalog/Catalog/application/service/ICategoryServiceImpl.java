@@ -34,10 +34,11 @@ public class ICategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public Category update(UUID id, CategoryDTO toUpdate) {
-        Category category = toUpdate.toEntity();
-        category.setId(id);
-        return this.categoryRepository.update(category);
+    public Optional<Category> update(UUID id, CategoryDTO toUpdate) {
+        return this.findById(id).map(record -> {
+            record.setName(toUpdate.toEntity().getName());
+            return this.categoryRepository.update(record);
+        });
     }
 
     @Override
