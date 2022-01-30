@@ -7,6 +7,8 @@ import com.catalog.Catalog.application.dto.CategoryDTO;
 import com.catalog.Catalog.domain.entity.Category;
 import com.catalog.Catalog.domain.repository.ICategoryRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -19,8 +21,8 @@ public class MySqlCategoryRepositoryImpl implements ICategoryRepository {
     }
 
     @Override
-    public Iterable<Category> findAllCategories() {
-        return this.springDataCategoryRepository.findAll();
+    public Page<Category> findAllCategories(Pageable pageable) {
+        return this.springDataCategoryRepository.findAll(pageable);
     }
 
     @Override

@@ -7,6 +7,8 @@ import com.catalog.Catalog.application.dto.CategoryDTO;
 import com.catalog.Catalog.domain.entity.Category;
 import com.catalog.Catalog.domain.repository.ICategoryRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,8 +21,8 @@ public class ICategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public Iterable<Category> findAll() {
-        return this.categoryRepository.findAllCategories();
+    public Page<Category> findAll(Pageable pageable) {
+        return this.categoryRepository.findAllCategories(pageable);
     }
 
     @Override
